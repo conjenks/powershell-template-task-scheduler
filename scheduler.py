@@ -29,6 +29,7 @@ def refresh(conn, scheduler):
 	c.execute("SELECT * FROM jobs")
 	for row in c:
 		if row[4] == 0:  # if job is not scheduled
+			writeToLogs(getJobDescription(row))
 			schedule(row, scheduler)
 			helper.setJobScheduled(c, row[0])
 			conn.commit()
@@ -45,7 +46,7 @@ def schedule(row, scheduler):
 	rundatePlusFive = rundate + datetime.timedelta(seconds=5)
 	scheduler.add_job(job, run_date=rundate, args=args) # testing - always do jobs 10 seconds in the future
 	scheduler.add_job(jobs.removeJobFromTable, run_date=rundatePlusFive, args=[row[0]])
-	
+
 
 def getDatetimeFromRow(row):
 	dateTime = datetime.datetime.strptime(row[1], "%x")
@@ -65,6 +66,11 @@ def writeToLogs(string):
 	with open('logs.txt', 'a') as f:
 		f.write(string)
 	f.close()
+
+def getJobDescription(row):
+	description = "JOB ADDED - " + str(datetime.datetime.now()) + "\n" + "Execute at:" + str(getDatetimeFromRow(row)) + "\n" + "Job: " + str(job_dict[row[3]]) + "\n" + "Arguments: " + str(getArgs(row))
+
+	return description
 
 
 
