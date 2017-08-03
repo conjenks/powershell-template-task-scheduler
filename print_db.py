@@ -13,7 +13,7 @@ print(pd.read_sql_query("SELECT * FROM jobs", conn))
 for row in c:
     print(row[9])
 
-c.execute("DROP TABLE jobs")
+# c.execute("DROP TABLE jobs")
 
 conn.close()
 

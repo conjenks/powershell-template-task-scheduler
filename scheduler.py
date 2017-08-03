@@ -66,6 +66,7 @@ def get_args(row): # extract the arguments from a row and return them in an arra
 
 def write_logs(string):
     with open('logs.txt', 'a') as f:
+        f.write("\n____________________________________________________________\n\n")
         f.write(string)
     f.close()
 

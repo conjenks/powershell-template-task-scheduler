@@ -60,17 +60,18 @@ def end_email_forwarding(first, last):
 
     # NEEDS EVALUATED
     with open('logs.txt', 'a') as logs:
-        logs.write("\n")
+        logs.write("\n____________________________________________________________\n\n")
+        logs.write(" ** FUNCTION OUTPUT -- needs identification method\n\n")
         p = subprocess.Popen(["powershell.exe", currentPath + "\\" + filename], stdout=logs)
     logs.close()
-    
 
     while True:
         if p.poll() is not None:
             os.remove(filename)
             break
 
-def removeJobFromTable(id):
+
+def remove_job_from_table(id):
     conn = sqlite3.connect('jobs.db')
     c = conn.cursor()
     c.execute("SELECT * FROM jobs")
