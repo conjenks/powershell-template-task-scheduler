@@ -7,6 +7,10 @@ As of right now, its main focus is as a framework for network administrators or 
 
 For example, there is currently a PowerShell template script in the `/scripts` directory named `emailForwarding.ps1`. This template takes a First Name, Last Name, and Username as input and launches an Exchange PowerShell script to begin forwarding the email of the {First Name} {Last Name} user to the email address of the {Username} input. Users of this Python Task Scheduler can go into a GUI, select the "Begin Email Forwarding" option, enter the input arguments as well as a run date and time, and the custom script will be launched accordingly. 
 
+# QUICK USAGE GUIDE
+
+To be filled in.
+
 # FILE BREAKDOWN
 
 # scheduler.py

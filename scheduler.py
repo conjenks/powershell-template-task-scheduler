@@ -45,7 +45,8 @@ def schedule(row, scheduler):
 	rundate = rundate + datetime.timedelta(seconds=10)
 	rundatePlusFive = rundate + datetime.timedelta(seconds=5)
 	scheduler.add_job(job, run_date=rundate, args=args) # testing - always do jobs 10 seconds in the future
-	scheduler.add_job(jobs.removeJobFromTable, run_date=rundatePlusFive, args=[row[0]])
+
+	scheduler.add_job(helper.removeJobFromTable, run_date=rundatePlusFive, args=[row[0]])
 
 
 def getDatetimeFromRow(row):

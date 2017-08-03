@@ -73,5 +73,5 @@ def removeJobFromTable(id):
     conn = sqlite3.connect('jobs.db')
     c = conn.cursor()
     c.execute("SELECT * FROM jobs")
-    c.execute("DELETE FROM jobs WHEREo ID=?", (id,))
+    c.execute("DELETE FROM jobs WHERE ID=?", (id,))
     conn.commit()
