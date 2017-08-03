@@ -1,17 +1,16 @@
-# the main program to choose which job to do and when
+# the GUI program to choose which job to do and when
 
 from easygui import *
 import sqlite3
 import helper
 import pandas as pd
 import subprocess as sp
-import jobs
 
 title = "Task Automation System"
 
 conn = sqlite3.connect('jobs.db')
 c = conn.cursor()
-helper.newTable(c)
+helper.new_table(c)
 
 
 def main():
@@ -20,25 +19,25 @@ def main():
                "Stop Forwarding Email"]
 
     choice = choicebox(msg, title, choices)
-    runDate = getRunDate()
-    runTime = getRunTime()
+    run_date = get_run_date()
+    run_time = get_run_time()
 
     if choice == choices[0] or choice == choices[1]:  # Begin Forwarding Email
         msg = "Enter the information."
-        fieldNames = ["First name", "Last name", "Username to forward to"]
-        FieldValues = multenterbox(msg, title, fieldNames)
+        field_names = ["First name", "Last name", "Username to forward to"]
+        field_values = multenterbox(msg, title, field_names)
 
         if choice == choices[0]:
-            helper.newJob(c, runDate, runTime, "beginEmailForwarding", FieldValues)
+            helper.new_job(c, run_date, run_time, "beginEmailForwarding", field_values)
         else:
-            helper.newJob(c, runDate, runTime, "beginEmailForwardingONLY", FieldValues)
+            helper.new_job(c, run_date, run_time, "beginEmailForwardingONLY", field_values)
 
     if choice == choices[2]:  # End Forwarding Email
         msg = "Enter the information."
-        fieldNames = ["First name", "Last name"]
-        FieldValues = multenterbox(msg, title, fieldNames)
+        field_names = ["First name", "Last name"]
+        field_values = multenterbox(msg, title, field_names)
 
-        helper.newJob(c, runDate, runTime, "endEmailForwarding", FieldValues)
+        helper.new_job(c, run_date, run_time, "endEmailForwarding", field_values)
 
     conn.commit()
     sp.call('cls', shell=True)
@@ -47,13 +46,13 @@ def main():
     conn.close()
 
 
-def getRunDate():
+def get_run_date():
     msg = "Enter the run date. (DD/MM/YY)"
-    startDate = enterbox(msg, title)
-    return startDate
+    start_date = enterbox(msg, title)
+    return start_date
 
 
-def getRunTime():
+def get_run_time():
     extensions = [":00", ":15", ":30", ":45"]
     choices = []
     for i in range(24):

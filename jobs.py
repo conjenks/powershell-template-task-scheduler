@@ -8,7 +8,8 @@ import sqlite3
 
 currentPath = os.getcwd()
 
-def beginEmailForwarding(first, last, username):
+
+def begin_email_forwarding(first, last, username):
     template = Template(filename='scripts/emailForwarding.ps1',
                         output_encoding='utf-16',
                         input_encoding='utf-16',
@@ -27,7 +28,7 @@ def beginEmailForwarding(first, last, username):
             break
 
 
-def beginEmailForwardingONLY(first, last, username):
+def begin_email_forwarding_only(first, last, username):
     template = Template(filename='scripts/emailForwardingONLY.ps1',
                         output_encoding='utf-16',
                         input_encoding='utf-16',
@@ -46,7 +47,7 @@ def beginEmailForwardingONLY(first, last, username):
             break
 
 
-def endEmailForwarding(first, last):
+def end_email_forwarding(first, last):
     template = Template(filename='scripts/removeEmailForwarding.ps1',
                         output_encoding='utf-16',
                         input_encoding='utf-16',
@@ -57,7 +58,7 @@ def endEmailForwarding(first, last):
     file.write((template.render(FIRST=first, LAST=last)))
     file.close()
 
-    # NEEDS EVAULATED
+    # NEEDS EVALUATED
     with open('logs.txt', 'a') as logs:
         logs.write("\n")
         p = subprocess.Popen(["powershell.exe", currentPath + "\\" + filename], stdout=logs)
