@@ -28,16 +28,16 @@ def main():
         field_values = multenterbox(msg, title, field_names)
 
         if choice == choices[0]:
-            helper.new_job(c, run_date, run_time, "beginEmailForwarding", field_values)
+            helper.new_job(c, run_date, run_time, "begin_email_forwarding", field_values)
         else:
-            helper.new_job(c, run_date, run_time, "beginEmailForwardingONLY", field_values)
+            helper.new_job(c, run_date, run_time, "begin_email_forwarding_only", field_values)
 
     if choice == choices[2]:  # End Forwarding Email
         msg = "Enter the information."
         field_names = ["First name", "Last name"]
         field_values = multenterbox(msg, title, field_names)
 
-        helper.new_job(c, run_date, run_time, "endEmailForwarding", field_values)
+        helper.new_job(c, run_date, run_time, "end_email_forwarding", field_values)
 
     conn.commit()
     sp.call('cls', shell=True)

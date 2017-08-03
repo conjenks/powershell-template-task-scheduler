@@ -3,10 +3,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
 import sqlite3
 import helper
-import jobs
 from time import time
-
-job_dict = {"beginEmailForwarding": jobs.begin_email_forwarding, "beginEmailForwardingONLY": jobs.begin_email_forwarding_only, "endEmailForwarding": jobs.end_email_forwarding}
 
 
 def main():
@@ -36,7 +33,7 @@ def refresh(conn, scheduler):
 
 
 def schedule(row, scheduler):
-    job = job_dict[row[3]]
+    job = helper.job_dict[row[3]]
     date_time = get_datetime_from_row(row)
     args = get_args(row)
     # scheduler.add_job(job_function, run_date=date_time) this is the real function
@@ -72,9 +69,9 @@ def write_logs(string):
 
 
 def get_job_description(row):
-    description = "JOB ADDED - " + str(datetime.datetime.now()) + "\n" \
+    description = "JOB ADDED ON - " + str(datetime.datetime.now()) + "\n" \
                   + "Execute at: " + str(get_datetime_from_row(row)) + "\n" \
-                  + "Job: " + str(job_dict[row[3]]) + "\n"\
+                  + "Job: " + str(helper.job_dict[row[3]]) + "\n"\
                   + "Arguments: " + str(get_args(row))
 
     return description

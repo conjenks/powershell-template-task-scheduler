@@ -1,5 +1,10 @@
 # defines the functions to interact with jobs.db
 import sqlite3
+import jobs
+
+job_dict = {"begin_email_forwarding": jobs.begin_email_forwarding,
+            "begin_email_forwarding_only": jobs.begin_email_forwarding_only,
+            "end_email_forwarding": jobs.end_email_forwarding}
 
 
 def new_job(cursor, date, time, job, args):
@@ -15,8 +20,17 @@ def new_job(cursor, date, time, job, args):
 
 def new_table(cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS jobs 
-            (id integer primary key autoincrement, date text, time text, job text, scheduled boolean, 
-            arg1 text, arg2 text, arg3 text, arg4 text, arg5 text, arg6 text)''')
+            (id integer primary key autoincrement, 
+            date text, 
+            time text, 
+            job text, 
+            scheduled boolean, 
+            arg1 text, 
+            arg2 text, 
+            arg3 text, 
+            arg4 text, 
+            arg5 text, 
+            arg6 text)''')
 
 
 def set_job_scheduled(cursor, rowid):
