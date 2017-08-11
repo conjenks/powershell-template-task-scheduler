@@ -9,7 +9,15 @@ For example, there is currently a PowerShell template script in the `/scripts` d
 
 # QUICK USAGE GUIDE
 
-To be filled in.
+1. Edit the scripts in the `scripts\` directory to apply to your respective Exchange server(s), etc.
+2. Set the path in `launch_scheduler.bat` as the absolute path to `scheduler.py` on your system.
+3. Install `launch_scheduler.bat` as a Windows service using NSSM[link].
+	Make sure the account you install the service with has Python 3 installed as well as the following dependencies (using pip):
+		mako
+		pandas
+		apscheduler
+		easygui
+4. Start the service, and run `task_ui.py` to begin adding custom tasks to the scheduler!
 
 # FILE BREAKDOWN
 
