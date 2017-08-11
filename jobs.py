@@ -10,7 +10,7 @@ currentPath = os.getcwd()
 
 
 def begin_email_forwarding(first, last, username):
-    template = Template(filename='scripts/emailForwarding.ps1',
+    template = Template(filename='scripts/email_forwarding.ps1',
                         output_encoding='utf-16',
                         input_encoding='utf-16',
                         encoding_errors='replace')
@@ -29,7 +29,7 @@ def begin_email_forwarding(first, last, username):
 
 
 def begin_email_forwarding_only(first, last, username):
-    template = Template(filename='scripts/emailForwardingONLY.ps1',
+    template = Template(filename='scripts/email_forwarding_only.ps1',
                         output_encoding='utf-16',
                         input_encoding='utf-16',
                         encoding_errors='replace')
@@ -39,7 +39,12 @@ def begin_email_forwarding_only(first, last, username):
     file.write((template.render(FIRST=first, LAST=last, USERNAME=username)))
     file.close()
 
-    p = subprocess.Popen(["powershell.exe", currentPath + "\\" + filename], stdout=sys.stdout)
+    # NEEDS EVALUATED
+    with open('logs.txt', 'a') as logs:
+        logs.write("\n____________________________________________________________\n\n")
+        logs.write(" ** FUNCTION OUTPUT -- needs identification method\n\n")
+        p = subprocess.Popen(["powershell.exe", currentPath + "\\" + filename], stdout=logs)
+    logs.close()
 
     while True:
         if p.poll() is not None:  # if the subprocess is done running
@@ -48,7 +53,7 @@ def begin_email_forwarding_only(first, last, username):
 
 
 def end_email_forwarding(first, last):
-    template = Template(filename='scripts/removeEmailForwarding.ps1',
+    template = Template(filename='scripts/end_email_forwarding.ps1',
                         output_encoding='utf-16',
                         input_encoding='utf-16',
                         encoding_errors='replace')
