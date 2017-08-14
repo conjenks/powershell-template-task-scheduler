@@ -20,12 +20,7 @@ def begin_email_forwarding(first, last, username):
     file.write((template.render(FIRST=first, LAST=last, USERNAME=username)))
     file.close()
 
-    p = subprocess.Popen(["powershell.exe", currentPath + "\\" + filename], stdout=sys.stdout)
-
-    while True:
-        if p.poll() is not None:  # if the subprocess is done running
-            os.remove(filename)
-            break
+    run_script_and_log(filename)
 
 
 def begin_email_forwarding_only(first, last, username):
@@ -39,17 +34,7 @@ def begin_email_forwarding_only(first, last, username):
     file.write((template.render(FIRST=first, LAST=last, USERNAME=username)))
     file.close()
 
-    # NEEDS EVALUATED
-    with open('logs.txt', 'a') as logs:
-        logs.write("\n____________________________________________________________\n\n")
-        logs.write(" ** FUNCTION OUTPUT -- needs identification method\n\n")
-        p = subprocess.Popen(["powershell.exe", currentPath + "\\" + filename], stdout=logs)
-    logs.close()
-
-    while True:
-        if p.poll() is not None:  # if the subprocess is done running
-            os.remove(filename)
-            break
+    run_script_and_log(filename)
 
 
 def end_email_forwarding(first, last):
@@ -63,7 +48,25 @@ def end_email_forwarding(first, last):
     file.write((template.render(FIRST=first, LAST=last)))
     file.close()
 
-    # NEEDS EVALUATED
+    run_script_and_log(filename)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def run_script_and_log(filename):
     with open('logs.txt', 'a') as logs:
         logs.write("\n____________________________________________________________\n\n")
         logs.write(" ** FUNCTION OUTPUT -- needs identification method\n\n")
