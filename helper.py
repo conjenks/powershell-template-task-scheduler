@@ -4,7 +4,6 @@ import jobs
 import datetime
 
 job_dict = {"begin_email_forwarding": jobs.begin_email_forwarding,
-            "begin_email_forwarding_only": jobs.begin_email_forwarding_only,
             "end_email_forwarding": jobs.end_email_forwarding}
 
 
@@ -38,11 +37,11 @@ def set_job_scheduled(cursor, rowid):
     cursor.execute("UPDATE jobs SET scheduled=1 WHERE ID=?", (rowid,))
 
 
-def remove_job_from_table(id):
+def remove_job_from_table(job_id):
     conn = sqlite3.connect('jobs.db')
     c = conn.cursor()
     c.execute("SELECT * FROM jobs")
-    c.execute("DELETE FROM jobs WHERE ID=?", (id,))
+    c.execute("DELETE FROM jobs WHERE ID=?", (job_id,))
     conn.commit()
 
 

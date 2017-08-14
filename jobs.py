@@ -19,17 +19,6 @@ def begin_email_forwarding(first, last, username):
     run_script_and_log(filename)
 
 
-def begin_email_forwarding_only(first, last, username):
-    template = get_template("email_forwarding_only.ps1")
-
-    filename = first + last + "ForwardingONLY.ps1"
-    file = open(filename, 'wb')
-    file.write((template.render(FIRST=first, LAST=last, USERNAME=username)))
-    file.close()
-
-    run_script_and_log(filename)
-
-
 def end_email_forwarding(first, last):
     template = get_template("end_email_forwarding.ps1")
 
@@ -53,7 +42,7 @@ def get_template(script_name):
 def run_script_and_log(filename):
     with open('logs.txt', 'a') as logs:
         logs.write("\n____________________________________________________________\n\n")
-        logs.write(" ** FUNCTION OUTPUT -- needs identification method\n\n")
+        logs.write(" ** FUNCTION OUTPUT\n\n")
         p = subprocess.Popen(["powershell.exe", currentPath + "\\" + filename], stdout=logs)
     logs.close()
 

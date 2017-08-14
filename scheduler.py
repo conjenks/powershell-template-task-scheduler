@@ -34,12 +34,12 @@ def schedule(row, scheduler):
     job = job_dict[row[3]]
     date_time = get_datetime_from_row(row)
     args = get_args(row)
-    # scheduler.add_job(job, run_date=date_time, args=args)  # this is the real function
+    scheduler.add_job(job, run_date=date_time, args=args)  # this is the real function
 
-    run_date = datetime.datetime.now()
-    run_date = run_date + datetime.timedelta(seconds=10)
-    run_date_plus_five = run_date + datetime.timedelta(seconds=5)
-    scheduler.add_job(job, run_date=run_date, args=args)  # testing - always do jobs 10 seconds in the future
+    # run_date = datetime.datetime.now()
+    # run_date = run_date + datetime.timedelta(seconds=10)
+    run_date_plus_five = date_time + datetime.timedelta(seconds=5)
+    # scheduler.add_job(job, run_date=run_date, args=args)  # testing - always do jobs 10 seconds in the future
 
     scheduler.add_job(remove_job_from_table, run_date=run_date_plus_five, args=[row[0]])
 

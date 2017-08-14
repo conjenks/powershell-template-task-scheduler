@@ -13,6 +13,7 @@ print(pd.read_sql_query("SELECT * FROM jobs", conn))
 for row in c:
     print(row[9])
 
+# *DANGER* -- uncomment this when you want to clear the job database
 # c.execute("DROP TABLE jobs")
 
 conn.close()

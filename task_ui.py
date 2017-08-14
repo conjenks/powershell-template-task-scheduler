@@ -1,49 +1,52 @@
 # the GUI program to choose which job to do and when
 
 from easygui import *
-import sqlite3
-import helper
+from helper import *
 import pandas as pd
 import subprocess as sp
 
-title = "Task Automation System"
+title = "Python Task Scheduler"
 
 conn = sqlite3.connect('jobs.db')
 c = conn.cursor()
-helper.new_table(c)
+new_table(c)
+task_list = list(job_dict.keys())
 
 
 def main():
-    msg = "Select a task to perform."
-    choices = ["Begin Forwarding Email", "Begin Forwarding Email (and not deliver to original user)",
-               "Stop Forwarding Email"]
 
-    choice = choicebox(msg, title, choices)
+    choice = select_task()
+
     run_date = get_run_date()
     run_time = get_run_time()
 
-    if choice == choices[0] or choice == choices[1]:  # Begin Forwarding Email
-        msg = "Enter the information."
+    msg = "Enter the information."
+
+    if choice == task_list[0]:  # Begin Forwarding Email
+
         field_names = ["First name", "Last name", "Username to forward to"]
         field_values = multenterbox(msg, title, field_names)
 
-        if choice == choices[0]:
-            helper.new_job(c, run_date, run_time, "begin_email_forwarding", field_values)
-        else:
-            helper.new_job(c, run_date, run_time, "begin_email_forwarding_only", field_values)
+        new_job(c, run_date, run_time, "begin_email_forwarding", field_values)
 
-    if choice == choices[2]:  # End Forwarding Email
-        msg = "Enter the information."
+    if choice == task_list[1]:  # End Forwarding Email
+
         field_names = ["First name", "Last name"]
         field_values = multenterbox(msg, title, field_names)
 
-        helper.new_job(c, run_date, run_time, "end_email_forwarding", field_values)
+        new_job(c, run_date, run_time, "end_email_forwarding", field_values)
 
     conn.commit()
     sp.call('cls', shell=True)
     print("\nSCHEDULED JOBS\n--------------------------------------------")
     print(pd.read_sql_query("SELECT * FROM jobs", conn))
     conn.close()
+
+
+def select_task():
+    msg = "Select a task to perform."
+    choice = choicebox(msg, title, task_list)
+    return choice
 
 
 def get_run_date():
