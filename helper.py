@@ -1,6 +1,7 @@
 # defines the functions to interact with jobs.db
 import sqlite3
 import jobs
+import datetime
 
 job_dict = {"begin_email_forwarding": jobs.begin_email_forwarding,
             "begin_email_forwarding_only": jobs.begin_email_forwarding_only,
@@ -43,3 +44,34 @@ def remove_job_from_table(id):
     c.execute("SELECT * FROM jobs")
     c.execute("DELETE FROM jobs WHERE ID=?", (id,))
     conn.commit()
+
+
+def get_job_description(row):
+    description = "JOB ADDED ON - " + str(datetime.datetime.now()) + "\n" \
+                  + "Execute at: " + str(get_datetime_from_row(row)) + "\n" \
+                  + "Job: " + str(job_dict[row[3]]) + "\n"\
+                  + "Arguments: " + str(get_args(row))
+
+    return description
+
+
+def get_datetime_from_row(row):
+    date_time = datetime.datetime.strptime(row[1], "%x")
+    date_time = date_time.replace(hour=int(row[2].split(':')[0]), minute=int(row[2].split(':')[1]))
+    return date_time
+
+
+def get_args(row):  # extract the arguments from a row and return them in an array
+    args = []
+    i = 5
+    while row[i] is not None:
+        args.append(row[i])
+        i += 1
+    return args
+
+
+def write_logs(string):
+    with open('logs.txt', 'a') as f:
+        f.write("\n____________________________________________________________\n\n")
+        f.write(string)
+    f.close()
