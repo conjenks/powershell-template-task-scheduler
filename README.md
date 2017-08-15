@@ -25,7 +25,7 @@ For example, there is currently a PowerShell template script in the `/scripts` d
 
 The main program which will be run as a Windows service through NSSM. This should not be altered except potentially by project contributors.
 
-#### taskUI.py
+#### task_ui.py
 
 Implements the `easygui` Python library and, when launched, is the interface for adding the custom tasks to the task scheduler. The user can alter this file, as well as the `jobs.py` file, when adding their own custom tasks.
 
@@ -83,6 +83,7 @@ See other tasks in `jobs.py` for reference.
 
 ## OTHER NOTES
 * Logs are printed to `logs.txt` whenever a new job is added, and also the output of each job is printed there as well.
+* The `/scripts` are tailored for Exchange 2007; tweaking may be needed for later versions.
 * See the bottom of `print_db.py` for a way to flush the database if enabled.
 * __If the Windows service is stopped for any reason (be it a reboot, etc.), restarting the service will not retain the tasks that were previously scheduled. The database should be flushed and jobs re-added. This may or may not be resolved in the future; feel free to take it upon yourself to eliminate this hassle (pull requests are very welcome!).__
 
