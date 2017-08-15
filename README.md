@@ -56,6 +56,7 @@ To add your own PowerShell templates:
         run_script_and_log(filename)
 ```
 See other tasks in `jobs.py` for reference.
+
 3. Add your job name and function reference to `job_dict` in `helper.py` like so:
 ```
     job_dict = {"begin_email_forwarding": jobs.begin_email_forwarding,
